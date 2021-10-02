@@ -1,0 +1,10 @@
+{% for project in projects %}
+<ul>
+  <li>
+    {{ project.title }}
+    <ul>
+      <li>{{ project.created }}</li>
+    </ul>
+  </li>
+</ul>
+{% endfor %}
