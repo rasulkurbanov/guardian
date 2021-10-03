@@ -10,6 +10,8 @@ class Project(models.Model):
     title = models.CharField(max_length=128)
     description = models.TextField(null=True, blank=True)
     demo_link = models.CharField(max_length=2000, null=True, blank=True)
+    featured_image = models.ImageField(
+        null=True, blank=True, default='default.png')
     source_link = models.CharField(max_length=2000, null=True, blank=True)
     tags = models.ManyToManyField('Tag', blank=True)
     vote_total = models.IntegerField(default=0, null=True, blank=True)
@@ -24,7 +26,7 @@ class Project(models.Model):
 
 class Review(models.Model):
     VOTE_TYPE = (('up', 'Up Vote'), ('down', 'Down Vote'))
-    #owner
+    # owner
     project = models.ForeignKey(Project, on_delete=models.CASCADE)
     body = models.TextField(null=True, blank=True)
     value = models.CharField(max_length=200, choices=VOTE_TYPE)
