@@ -3,7 +3,7 @@
 <!-- Header Section -->
 <header class="header">
   <div class="container container--narrow">
-    <a href="/" ="header__logo" href="{% url 'projects' %}">
+    <a href="/" ="header__logo" href="{% url 'profiles' %}">
       <img
         src="{% static 'images/logo.svg' %}"
         style="max-width: 100px; height: 50px"
@@ -18,8 +18,12 @@
         <div class="toggle-menu__lines"></div>
       </label>
       <ul class="header__menu">
-        <li class="header__menuItem"><a href="">Developers</a></li>
-        <li class="header__menuItem"><a href="">Projects</a></li>
+        <li class="header__menuItem">
+          <a href="{% url 'profiles' %}">Developers</a>
+        </li>
+        <li class="header__menuItem">
+          <a href="{% url 'projects' %}">Projects</a>
+        </li>
 
         {% if request.user.is_authenticated %}
         <li class="header__menuItem"><a href="">Inbox</a></li>
@@ -28,11 +32,11 @@
           <a href="{% url 'new-project' %}">Add project</a>
         </li>
         <li class="header__menuItem">
-          <a href="" class="btn btn--sub">Logout</a>
+          <a href="{% url 'logout' %}" class="btn btn--sub">Logout</a>
         </li>
         {% else %}
         <li class="header__menuItem">
-          <a href="" class="btn btn--sub">Login/Sign Up</a>
+          <a href="{% url 'login' %}" class="btn btn--sub">Login/Sign Up</a>
         </li>
         {% endif %}
       </ul>
