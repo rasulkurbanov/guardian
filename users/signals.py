@@ -3,7 +3,7 @@ from django.dispatch import receiver
 from django.contrib.auth.models import User
 from .models import Profile
 
-def createProfie(sender, instance, created, **kwargs):
+def createUser(sender, instance, created, **kwargs):
     if created:
         user = instance
         profile = Profile.objects.create(
@@ -13,9 +13,20 @@ def createProfie(sender, instance, created, **kwargs):
           name=user.first_name
         )
 
-def deleteProfile(sender, instance, **kwargs):
+def updateUser(sender, instance, created, **kwargs):
+    profile = instance
+    user = profile.user
+
+    if created == False:
+      user.first_name = profile.name
+      user.username = profile.username
+      user.email = profile.email
+      user.save()
+
+def deleteUser(sender, instance, **kwargs):
     user = instance.user
     user.delete()
 
-post_save.connect(createProfie, sender=User)
-post_delete.connect(deleteProfile, sender=Profile)
+post_save.connect(createUser, sender=User)
+post_save.connect(updateUser, sender=Profile)
+post_delete.connect(deleteUser, sender=Profile)
